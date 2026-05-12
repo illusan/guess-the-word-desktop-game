@@ -5,7 +5,7 @@ from settings import SettingsFrame
 app = ctk.CTk()
 app.title("Game inspired by Wordle")
 app.geometry("1280x720")
-app.resizable(False, False)
+#app.resizable(False, False)
 
 full_screen = False
 
@@ -19,6 +19,12 @@ def set_screen_mode(choice):
 def show_settings():
     main_menu_frame.pack_forget() # hiding main menu
     settings_frame.pack(fill="both", expand=True) # showing settings
+    app.after(20, app.update)
+
+def back_callback():
+    settings_frame.pack_forget() 
+    main_menu_frame.pack(fill="both", expand=True) 
+    app.after(20, app.update)
 
 
 main_menu_frame = ctk.CTkFrame(app, fg_color="transparent")
@@ -48,11 +54,6 @@ button_exit = ctk.CTkButton(frame, text="Exit game", width=200, height=50, comma
 button_exit.grid(row=3, column=0, padx=10, pady=10)
 
 
-
-
-#option = ctk.CTkOptionMenu(frame, values=["Fullscreen", "Windowed"], width=200)
-#option.grid(row=3, column=0, padx=10, pady=10)
-
-settings_frame = SettingsFrame(app, switch_screen_callback=set_screen_mode, back_callback=None)
+settings_frame = SettingsFrame(app, switch_screen_callback=set_screen_mode, back_callback=back_callback)
 
 app.mainloop()
