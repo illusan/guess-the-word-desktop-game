@@ -1,6 +1,8 @@
 import customtkinter as ctk
 import pygame # sound
 from settings import SettingsFrame
+from game_eng import GameEngFrame
+from game_pl import GamePlFrame
 
 app = ctk.CTk()
 app.title("Game inspired by Wordle")
@@ -23,9 +25,20 @@ def show_settings():
 
 def back_callback():
     settings_frame.pack_forget() 
+    game_eng_frame.pack_forget()
+    game_pl_frame.pack_forget()
     main_menu_frame.pack(fill="both", expand=True) 
     app.after(20, app.update)
 
+def show_game_eng():
+    main_menu_frame.pack_forget()
+    game_eng_frame.pack(fill="both", expand=True)
+    app.after(20, app.update)
+
+def show_game_pl():
+    main_menu_frame.pack_forget()
+    game_pl_frame.pack(fill="both", expand=True)
+    app.after(20, app.update)
 
 main_menu_frame = ctk.CTkFrame(app, fg_color="transparent")
 main_menu_frame.pack(fill="both", expand=True)
@@ -41,10 +54,10 @@ text2.pack(pady=(5, 0))
 frame = ctk.CTkFrame(main_menu_frame, bg_color="transparent")
 frame.pack(pady=(100, 0))
 
-button_pl = ctk.CTkButton(frame, text="Graj po Polsku (PL)", width=200, height=50)
+button_pl = ctk.CTkButton(frame, text="Graj po Polsku (PL)", width=200, height=50, command=show_game_pl)
 button_pl.grid(row=0, column=0, padx=10, pady=10)
 
-button_eng = ctk.CTkButton(frame, text="Play in English (ENG)", width=200, height=50)
+button_eng = ctk.CTkButton(frame, text="Play in English (ENG)", width=200, height=50, command=show_game_eng)
 button_eng.grid(row=1, column=0, padx=10, pady=10)
 
 button_settings = ctk.CTkButton(frame, text="Settings", width=200, height=50, command=show_settings)
@@ -55,5 +68,7 @@ button_exit.grid(row=3, column=0, padx=10, pady=10)
 
 
 settings_frame = SettingsFrame(app, switch_screen_callback=set_screen_mode, back_callback=back_callback)
+game_eng_frame = GameEngFrame(app, back_callback=back_callback)
+game_pl_frame = GamePlFrame(app, back_callback=back_callback)
 
 app.mainloop()
