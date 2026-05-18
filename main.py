@@ -3,6 +3,15 @@ import pygame # sound
 from settings import SettingsFrame
 from game_eng import GameEngFrame
 from game_pl import GamePlFrame
+from pathlib import Path
+
+
+words_pl_path = Path('data/words_pl.txt')
+words_pl = words_pl_path.read_text()
+
+words_eng_path = Path('data/words_eng.txt')
+words_eng = words_eng_path.read_text()
+
 
 app = ctk.CTk()
 app.title("Game inspired by Wordle")
